@@ -44,6 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
         case "rps":
           break;
+        case "hangman":
+          initializeHangman();
+          break;
+        case "pong":
+          break;
+        case "simon":
+          break;
+        case "whack":
+          break;
+
         case "quiz":
           if (!quizGameInitialized) {
             initializeQuizGame();

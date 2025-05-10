@@ -20,6 +20,10 @@
             <a href="#" class="nav-link" data-game="tictactoe">Tic Tac Toe</a>
           </li>
           <li><a href="#" class="nav-link" data-game="rps">Rock Paper Scissors</a></li>
+          <li><a href="#" class="nav-link" data-game="hangman">Hangman</a></li>
+          <li><a href="#" class="nav-link" data-game="pong">Pong</a></li>
+          <li><a href="#" class="nav-link" data-game="simon">Simon Says</a></li>
+          <li><a href="#" class="nav-link" data-game="whack">Whack-a-Mole</a></li>
 
         </ul>
       </nav>
@@ -27,6 +31,30 @@
 
     <main>
       <div id="game-container">
+        <div id="whack-game" class="game-screen">
+          <h2>Whack-a-Mole</h2>
+          <p>Score: <span id="whack-score">0</span></p>
+          <div id="whack-grid"></div>
+          <button id="whack-start">Start Game</button>
+        </div>
+
+        <div id="simon-game" class="game-screen">
+          <h2>Simon Says</h2>
+          <div id="simon-buttons">
+            <div class="simon-button" data-color="green"></div>
+            <div class="simon-button" data-color="red"></div>
+            <div class="simon-button" data-color="yellow"></div>
+            <div class="simon-button" data-color="blue"></div>
+          </div>
+          <h3 id="simon-status">Press any button to start</h3>
+        </div>
+
+        <div id="pong-game" class="game-screen">
+          <h2>Pong</h2>
+          <canvas id="pong-canvas" width="600" height="400"></canvas>
+          <p>Use ↑ and ↓ arrows to move your paddle.</p>
+        </div>
+
         <div id="rps-game" class="game-screen">
           <h2>Rock Paper Scissors</h2>
           <div class="rps-options">
@@ -38,6 +66,16 @@
           <p>Computer choice: <span id="rps-computer-choice">-</span></p>
           <h3 id="rps-result">Let's Play!</h3>
         </div>
+        <div id="hangman-game" class="game-screen">
+          <h2>Hangman</h2>
+          <p>Guess the word:</p>
+          <h3 id="hangman-word">_ _ _ _ _</h3>
+          <p>Wrong guesses: <span id="hangman-wrong">0</span></p>
+          <div id="hangman-letters"></div>
+          <h3 id="hangman-result"></h3>
+          <button id="hangman-reset">New Game</button>
+        </div>
+
         <div id="welcome-screen" class="active-screen">
           <h2>Welcome to Fun Game Zone!</h2>
           <p>Select a game from the menu above to start playing.</p>
@@ -77,9 +115,6 @@
 
     </main>
 
-    <footer>
-      <p>&copy; 2023 Fun Game Zone</p>
-    </footer>
 
     <!-- Main Script -->
     <script src="script.js"></script>
@@ -89,7 +124,13 @@
     <script src="snake-game.js"></script>
     <script src="quiz-game.js"></script>
     <script src="tictactoe-game.js"></script>
-    <script src="rps-game.js"></script> <!-- ✅ دي اللي ناقصة -->
+    <script src="rps-game.js"></script>
+    <script src="hangman-game.js"></script>
+    <script src="pong-game.js"></script>
+    <script src="simon-game.js"></script>
+    <script src="whack-game.js"></script>
+
+
 
   </body>
 </html>
