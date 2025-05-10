@@ -1,3 +1,4 @@
+//script.js
 document.addEventListener("DOMContentLoaded", () => {
   // Set up global game state variables
   let memoryGameInitialized = false;

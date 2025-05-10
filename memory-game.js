@@ -1,141 +1,81 @@
-// Memory Game Implementation
+// memory-game.js
 
-// Game variables
-let memoryCards = [];
-let hasFlippedCard = false;
-let lockBoard = false;
-let firstCard, secondCard;
-let matchedPairs = 0;
-let totalPairs = 8;
+let firstCard,
+  secondCard,
+  lockBoard = false,
+  matchedPairs = 0;
+const symbols = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼"];
 
-// Card symbols (using emojis for simplicity)
-const cardSymbols = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼"];
-
-// Function to initialize the memory game
 function initializeMemoryGame() {
-  const memoryBoard = document.getElementById("memory-board");
-  memoryBoard.innerHTML = "";
-
-  // Create an array with pairs of symbols
-  const cardPairs = [...cardSymbols, ...cardSymbols];
-
-  // Shuffle the array
-  shuffleArray(cardPairs);
-
-  // Create cards and add them to the board
-  cardPairs.forEach((symbol, index) => {
-    const card = document.createElement("div");
-    card.classList.add("memory-card");
-    card.dataset.symbol = symbol;
-
-    const front = document.createElement("div");
-    front.classList.add("front");
-    front.textContent = "?";
-
-    const back = document.createElement("div");
-    back.classList.add("back");
-    back.textContent = symbol;
-
-    card.appendChild(front);
-    card.appendChild(back);
-
-    card.addEventListener("click", flipCard);
-
-    memoryBoard.appendChild(card);
-  });
-
-  // Reset game state
-  hasFlippedCard = false;
-  lockBoard = false;
-  firstCard = null;
-  secondCard = null;
+  const board = document.getElementById("memory-board");
+  board.innerHTML = "";
   matchedPairs = 0;
 
-  // Store all cards in the memoryCards array
-  memoryCards = document.querySelectorAll(".memory-card");
+  // مضاعفة الرموز وخلطهم
+  const cards = shuffle([...symbols, ...symbols]);
+
+  // إنشاء الكروت
+  cards.forEach((symbol) => {
+    const card = document.createElement("div");
+    card.className = "memory-card";
+    card.dataset.symbol = symbol;
+    card.innerHTML = `
+      <div class="front">?</div>
+      <div class="back">${symbol}</div>
+    `;
+    card.addEventListener("click", flipCard);
+    board.appendChild(card);
+  });
 }
 
-// Function to flip a card
 function flipCard() {
-  if (lockBoard) return;
-  if (this === firstCard) return;
+  if (lockBoard || this === firstCard || this.classList.contains("flipped"))
+    return;
 
   this.classList.add("flipped");
-
-  if (!hasFlippedCard) {
-    // First click
-    hasFlippedCard = true;
+  if (!firstCard) {
     firstCard = this;
-    return;
+  } else {
+    secondCard = this;
+    checkMatch();
   }
-
-  // Second click
-  secondCard = this;
-
-  checkForMatch();
 }
 
-// Function to check if cards match
-function checkForMatch() {
-  let isMatch = firstCard.dataset.symbol === secondCard.dataset.symbol;
-
+function checkMatch() {
+  const isMatch = firstCard.dataset.symbol === secondCard.dataset.symbol;
   if (isMatch) {
     disableCards();
-    matchedPairs++;
-
-    // Check if the game is won
-    if (matchedPairs === totalPairs) {
+    if (++matchedPairs === symbols.length) {
       setTimeout(() => {
-        alert("Congratulations! You won the memory game!");
-        resetGame();
-      }, 1000);
+        alert("مبروك! لقد ربحت اللعبة 🎉");
+        initializeMemoryGame();
+      }, 800);
     }
   } else {
     unflipCards();
   }
 }
 
-// Function to disable matched cards
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
-
-  resetBoard();
+  resetTurn();
 }
 
-// Function to unflip non-matching cards
 function unflipCards() {
   lockBoard = true;
-
   setTimeout(() => {
     firstCard.classList.remove("flipped");
     secondCard.classList.remove("flipped");
-
-    resetBoard();
-  }, 1000);
+    resetTurn();
+  }, 800);
 }
 
-// Function to reset the board after each turn
-function resetBoard() {
-  [hasFlippedCard, lockBoard] = [false, false];
-  [firstCard, secondCard] = [null, null];
+function resetTurn() {
+  [firstCard, secondCard, lockBoard] = [null, null, false];
 }
 
-// Function to reset the game
-function resetGame() {
-  lockBoard = true;
-
-  setTimeout(() => {
-    memoryCards.forEach((card) => {
-      card.classList.remove("flipped");
-    });
-
-    initializeMemoryGame();
-  }, 1000);
-}
-
-// Utility function to shuffle an array (Fisher-Yates algorithm)
-function shuffleArray(array) {
+function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];

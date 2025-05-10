@@ -5,31 +5,32 @@ let currentQuestionIndex = 0;
 let quizScore = 0;
 let quizQuestions = [
   {
-    question: "What is the capital of France?",
-    options: ["London", "Paris", "Berlin", "Madrid"],
-    answer: "Paris",
+    question: "ما هي عاصمة فرنسا؟",
+    options: ["لندن", "باريس", "برلين", "مدريد"],
+    answer: "باريس",
   },
   {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Venus", "Mars", "Jupiter", "Saturn"],
-    answer: "Mars",
+    question: "أي كوكب يُعرف بالكوكب الأحمر؟",
+    options: ["الزهرة", "المريخ", "المشتري", "زحل"],
+    answer: "المريخ",
   },
   {
-    question: "What is the largest ocean on Earth?",
-    options: ["Atlantic", "Indian", "Pacific", "Arctic"],
-    answer: "Pacific",
+    question: "ما هو أكبر محيط على وجه الأرض؟",
+    options: ["الأطلسي", "الهندي", "الهادئ", "المتجمد الشمالي"],
+    answer: "الهادئ",
   },
   {
-    question: "Who wrote 'Romeo and Juliet'?",
-    options: ["Shakespeare", "Dickens", "Hemingway", "Twain"],
-    answer: "Shakespeare",
+    question: "من كتب 'روميو وجولييت'؟",
+    options: ["شكسبير", "ديكنز", "همنغواي", "توين"],
+    answer: "شكسبير",
   },
   {
-    question: "Which gas do plants absorb from the atmosphere?",
-    options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
-    answer: "Carbon Dioxide",
+    question: "أي غاز تمتصه النباتات من الجو؟",
+    options: ["الأكسجين", "النيتروجين", "ثاني أكسيد الكربون", "الهيدروجين"],
+    answer: "ثاني أكسيد الكربون",
   },
 ];
+
 
 function initializeQuizGame() {
   currentQuestionIndex = 0;
