@@ -62,17 +62,29 @@ footer {
 #game-container {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   min-height: 500px;
 }
 
 .game-screen {
   display: none;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .active-screen {
   display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Welcome Screen */
@@ -90,25 +102,27 @@ footer {
 /* Memory Game Styles */
 #memory-board {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   gap: 10px;
   margin-top: 1rem;
 }
 
 .memory-card {
-  height: 100px;
+  height: 90px;
   background-color: #3498db;
-  border-radius: 5px;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
   transform-style: preserve-3d;
+  position: relative;
 }
 
 .memory-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .memory-card.flipped {
@@ -124,11 +138,13 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 .memory-card .front {
   background-color: #3498db;
+  font-size: 1.5rem;
+  color: white;
 }
 
 .memory-card .back {
@@ -143,6 +159,7 @@ footer {
   margin: 1rem auto;
   background-color: #f0f0f0;
   border: 2px solid #333;
+  max-width: 100%;
 }
 
 .game-controls {
@@ -151,12 +168,14 @@ footer {
 }
 
 .game-controls button {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   background-color: #3498db;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
 .game-controls button:hover {
@@ -172,8 +191,10 @@ footer {
 #question-container {
   background-color: #f0f0f0;
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 #options-container {
@@ -183,35 +204,37 @@ footer {
   margin-bottom: 1rem;
 }
 
-.option {
+.quiz-option {
   padding: 0.8rem;
   background-color: #3498db;
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
 }
 
-.option:hover {
+.quiz-option:hover {
   background-color: #2980b9;
-}
-
-.option.correct {
-  background-color: #2ecc71;
-}
-
-.option.wrong {
-  background-color: #e74c3c;
+  transform: scale(1.05);
 }
 
 #next-question {
   padding: 0.5rem 1rem;
-  background-color: #3498db;
+  background-color: #27ae60;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   display: block;
   margin: 0 auto;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+#next-question:hover {
+  background-color: #1e8449;
 }
 
 /* Tic Tac Toe Styles */
@@ -233,25 +256,90 @@ footer {
   font-size: 2rem;
   cursor: pointer;
   border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .tictactoe-cell:hover {
   background-color: #e0e0e0;
+  transform: scale(1.05);
 }
 
 #tictactoe-reset {
   padding: 0.5rem 1rem;
-  background-color: #3498db;
+  background-color: #e67e22;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   display: block;
   margin: 1rem auto;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+#tictactoe-reset:hover {
+  background-color: #ca6f1e;
 }
 
 #tictactoe-status {
   text-align: center;
   font-weight: bold;
   margin-top: 1rem;
+  font-size: 1.1rem;
+}/* تحسين شكل لعبة Rock Paper Scissors */
+#rps-game {
+  text-align: center;
+  padding: 1rem;
 }
+
+.rps-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+
+.rps-options button {
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.rps-options button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+#rps-result {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #2c3e50;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  #memory-board {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #options-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tictactoe-cell {
+    height: 80px;
+    font-size: 1.5rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+}
+

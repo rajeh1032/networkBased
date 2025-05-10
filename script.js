@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Set up global game state variables
+  let memoryGameInitialized = false;
+  let quizGameInitialized = false;
+  let tictactoeGameInitialized = false;
+
   // Get all navigation links
   const navLinks = document.querySelectorAll(".nav-link");
 
@@ -36,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           break;
         case "snake":
-          // Snake game is initialized when start button is clicked
+          break;
+        case "rps":
           break;
         case "quiz":
           if (!quizGameInitialized) {
@@ -53,9 +59,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
-  // Set up global game state variables
-  let memoryGameInitialized = false;
-  let quizGameInitialized = false;
-  let tictactoeGameInitialized = false;
 });

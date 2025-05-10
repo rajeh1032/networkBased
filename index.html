@@ -9,7 +9,7 @@
   <body>
     <header>
       <h1>Fun Game Zone</h1>
-      <nav>       
+      <nav>
         <ul>
           <li>
             <a href="#" class="nav-link" data-game="memory">Memory Game</a>
@@ -19,12 +19,25 @@
           <li>
             <a href="#" class="nav-link" data-game="tictactoe">Tic Tac Toe</a>
           </li>
+          <li><a href="#" class="nav-link" data-game="rps">Rock Paper Scissors</a></li>
+
         </ul>
       </nav>
     </header>
 
     <main>
       <div id="game-container">
+        <div id="rps-game" class="game-screen">
+          <h2>Rock Paper Scissors</h2>
+          <div class="rps-options">
+            <button data-choice="rock">🪨 Rock</button>
+            <button data-choice="paper">📄 Paper</button>
+            <button data-choice="scissors">✂️ Scissors</button>
+          </div>
+          <p>Your choice: <span id="rps-player-choice">-</span></p>
+          <p>Computer choice: <span id="rps-computer-choice">-</span></p>
+          <h3 id="rps-result">Let's Play!</h3>
+        </div>
         <div id="welcome-screen" class="active-screen">
           <h2>Welcome to Fun Game Zone!</h2>
           <p>Select a game from the menu above to start playing.</p>
@@ -61,6 +74,7 @@
           <p id="tictactoe-status"></p>
         </div>
       </div>
+
     </main>
 
     <footer>
@@ -75,5 +89,7 @@
     <script src="snake-game.js"></script>
     <script src="quiz-game.js"></script>
     <script src="tictactoe-game.js"></script>
+    <script src="rps-game.js"></script> <!-- ✅ دي اللي ناقصة -->
+
   </body>
 </html>

@@ -2,169 +2,93 @@
 
 // Game variables
 let currentQuestionIndex = 0;
-let score = 0;
-let questions = [];
+let quizScore = 0;
+let quizQuestions = [
+  {
+    question: "What is the capital of France?",
+    options: ["London", "Paris", "Berlin", "Madrid"],
+    answer: "Paris",
+  },
+  {
+    question: "Which planet is known as the Red Planet?",
+    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+    answer: "Mars",
+  },
+  {
+    question: "What is the largest ocean on Earth?",
+    options: ["Atlantic", "Indian", "Pacific", "Arctic"],
+    answer: "Pacific",
+  },
+  {
+    question: "Who wrote 'Romeo and Juliet'?",
+    options: ["Shakespeare", "Dickens", "Hemingway", "Twain"],
+    answer: "Shakespeare",
+  },
+  {
+    question: "Which gas do plants absorb from the atmosphere?",
+    options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+    answer: "Carbon Dioxide",
+  },
+];
 
-// Function to initialize the quiz game
 function initializeQuizGame() {
-  // Reset game state
   currentQuestionIndex = 0;
-  score = 0;
-  document.getElementById("quiz-score").textContent = score;
+  quizScore = 0;
+  document.getElementById("quiz-score").textContent = quizScore;
+  showQuestion();
 
-  // Define quiz questions
-  questions = [
-    {
-      question: "What does HTML stand for?",
-      options: [
-        "Hyper Text Markup Language",
-        "Hyper Transfer Markup Language",
-        "High Text Markup Language",
-        "Home Tool Markup Language",
-      ],
-      answer: 0,
-    },
-    {
-      question: "Which property is used to change the background color in CSS?",
-      options: ["color", "bgcolor", "background-color", "background"],
-      answer: 2,
-    },
-    {
-      question: "Which of the following is not a JavaScript data type?",
-      options: ["Boolean", "String", "Integer", "Object"],
-      answer: 2,
-    },
-    {
-      question: "What does CSS stand for?",
-      options: [
-        "Cascading Style System",
-        "Cascading Style Sheet",
-        "Computer Style Sheet",
-        "Creative Style System",
-      ],
-      answer: 1,
-    },
-    {
-      question:
-        "Which method is used to add an element at the end of an array in JavaScript?",
-      options: ["push()", "append()", "addToEnd()", "add()"],
-      answer: 0,
-    },
-  ];
-
-  // Set up event listener for the next button
   document
     .getElementById("next-question")
     .addEventListener("click", nextQuestion);
-
-  // Display the first question
-  displayQuestion();
 }
 
-// Function to display a question
-function displayQuestion() {
-  // Get containers
+function showQuestion() {
   const questionContainer = document.getElementById("question-container");
   const optionsContainer = document.getElementById("options-container");
 
-  // Clear previous question
-  questionContainer.innerHTML = "";
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+
+  questionContainer.textContent = currentQuestion.question;
   optionsContainer.innerHTML = "";
 
-  // Get current question
-  const question = questions[currentQuestionIndex];
-
-  // Display question
-  questionContainer.textContent = question.question;
-
-  // Display options
-  question.options.forEach((option, index) => {
-    const optionElement = document.createElement("div");
-    optionElement.classList.add("option");
-    optionElement.textContent = option;
-    optionElement.dataset.index = index;
-
-    optionElement.addEventListener("click", selectOption);
-
-    optionsContainer.appendChild(optionElement);
+  currentQuestion.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.textContent = option;
+    button.classList.add("quiz-option");
+    button.addEventListener("click", () => selectAnswer(option));
+    optionsContainer.appendChild(button);
   });
-
-  // Hide next button initially
-  document.getElementById("next-question").style.display = "none";
 }
 
-// Function to handle option selection
-function selectOption(e) {
-  // Get selected option index
-  const selectedIndex = parseInt(e.target.dataset.index);
+function selectAnswer(selectedOption) {
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  const optionButtons = document.querySelectorAll(".quiz-option");
 
-  // Get correct answer index
-  const correctIndex = questions[currentQuestionIndex].answer;
+  optionButtons.forEach((btn) => (btn.disabled = true));
 
-  // Get all options
-  const options = document.querySelectorAll(".option");
-
-  // Disable all options
-  options.forEach((option) => {
-    option.removeEventListener("click", selectOption);
-    option.style.cursor = "default";
-  });
-
-  // Mark selected option as correct or wrong
-  if (selectedIndex === correctIndex) {
-    e.target.classList.add("correct");
-    score++;
-    document.getElementById("quiz-score").textContent = score;
-  } else {
-    e.target.classList.add("wrong");
-    options[correctIndex].classList.add("correct");
+  if (selectedOption === currentQuestion.answer) {
+    quizScore++;
+    document.getElementById("quiz-score").textContent = quizScore;
   }
 
-  // Show next button
-  document.getElementById("next-question").style.display = "block";
+  // Highlight correct and wrong answers
+  optionButtons.forEach((btn) => {
+    if (btn.textContent === currentQuestion.answer) {
+      btn.style.backgroundColor = "#2ecc71"; // correct
+    } else if (btn.textContent === selectedOption) {
+      btn.style.backgroundColor = "#e74c3c"; // wrong
+    }
+  });
 }
 
-// Function to move to the next question
 function nextQuestion() {
   currentQuestionIndex++;
 
-  // Check if quiz is complete
-  if (currentQuestionIndex >= questions.length) {
-    endQuiz();
+  if (currentQuestionIndex >= quizQuestions.length) {
+    alert(`Quiz finished! Your score: ${quizScore}/${quizQuestions.length}`);
+    initializeQuizGame();
     return;
   }
 
-  // Display next question
-  displayQuestion();
-}
-
-// Function to end the quiz
-function endQuiz() {
-  // Get containers
-  const questionContainer = document.getElementById("question-container");
-  const optionsContainer = document.getElementById("options-container");
-
-  // Clear previous question
-  questionContainer.innerHTML = "";
-  optionsContainer.innerHTML = "";
-
-  // Display final score
-  questionContainer.innerHTML = `
-        <h3>Quiz Complete!</h3>
-        <p>Your final score: ${score} out of ${questions.length}</p>
-    `;
-
-  // Change button text
-  const nextButton = document.getElementById("next-question");
-  nextButton.textContent = "Restart Quiz";
-  nextButton.style.display = "block";
-
-  // Change button functionality
-  nextButton.removeEventListener("click", nextQuestion);
-  nextButton.addEventListener("click", () => {
-    nextButton.textContent = "Next Question";
-    nextButton.removeEventListener("click", arguments.callee);
-    nextButton.addEventListener("click", nextQuestion);
-    initializeQuizGame();
-  });
+  showQuestion();
 }
