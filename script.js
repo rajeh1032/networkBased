@@ -70,3 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.getElementById("toggle-mode");
+  toggleButton.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+  });
+});
