@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fun Game Zone</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Fun Game Zone</h1>
+      <nav>       
+        <ul>
+          <li>
+            <a href="#" class="nav-link" data-game="memory">Memory Game</a>
+          </li>
+          <li><a href="#" class="nav-link" data-game="snake">Snake Game</a></li>
+          <li><a href="#" class="nav-link" data-game="quiz">Quiz Game</a></li>
+          <li>
+            <a href="#" class="nav-link" data-game="tictactoe">Tic Tac Toe</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div id="game-container">
+        <div id="welcome-screen" class="active-screen">
+          <h2>Welcome to Fun Game Zone!</h2>
+          <p>Select a game from the menu above to start playing.</p>
+        </div>
+
+        <div id="memory-game" class="game-screen">
+          <h2>Memory Game</h2>
+          <div class="game-board" id="memory-board"></div>
+        </div>
+
+        <div id="snake-game" class="game-screen">
+          <h2>Snake Game</h2>
+          <canvas id="snake-canvas" width="400" height="400"></canvas>
+          <div class="game-controls">
+            <button id="snake-start">Start Game</button>
+            <p>Score: <span id="snake-score">0</span></p>
+          </div>
+        </div>
+
+        <div id="quiz-game" class="game-screen">
+          <h2>Quiz Game</h2>
+          <div id="quiz-container">
+            <div id="question-container"></div>
+            <div id="options-container"></div>
+            <button id="next-question">Next Question</button>
+            <p>Score: <span id="quiz-score">0</span></p>
+          </div>
+        </div>
+
+        <div id="tictactoe-game" class="game-screen">
+          <h2>Tic Tac Toe</h2>
+          <div id="tictactoe-board"></div>
+          <button id="tictactoe-reset">New Game</button>
+          <p id="tictactoe-status"></p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Fun Game Zone</p>
+    </footer>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+
+    <!-- Game Scripts -->
+    <script src="memory-game.js"></script>
+    <script src="snake-game.js"></script>
+    <script src="quiz-game.js"></script>
+    <script src="tictactoe-game.js"></script>
+  </body>
+</html>
