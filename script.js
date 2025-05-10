@@ -40,20 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
             memoryGameInitialized = true;
           }
           break;
-        case "snake":
-          break;
         case "rps":
           break;
-        case "hangman":
-          initializeHangman();
-          break;
-        case "pong":
-          break;
-        case "simon":
-          break;
-        case "whack":
-          break;
-
         case "quiz":
           if (!quizGameInitialized) {
             initializeQuizGame();
@@ -68,11 +56,5 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
       }
     });
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleButton = document.getElementById("toggle-mode");
-  toggleButton.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
   });
 });
