@@ -31,7 +31,6 @@ let quizQuestions = [
   },
 ];
 
-
 function initializeQuizGame() {
   currentQuestionIndex = 0;
   quizScore = 0;

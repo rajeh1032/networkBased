@@ -7,29 +7,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const computerChoiceSpan = document.getElementById("rps-computer-choice");
   const resultHeading = document.getElementById("rps-result");
 
+  // Add score tracking
+  let scores = {
+    wins: 0,
+    losses: 0,
+    draws: 0,
+  };
+
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       const playerChoice = button.getAttribute("data-choice");
       const computerChoice = choices[Math.floor(Math.random() * 3)];
 
-      playerChoiceSpan.textContent = playerChoice;
-      computerChoiceSpan.textContent = computerChoice;
-
       const result = getResult(playerChoice, computerChoice);
       resultHeading.textContent = result;
+      updateScoreDisplay();
     });
   });
 
   function getResult(player, computer) {
-    if (player === computer) return "It's a Draw!";
+    const arabicChoices = {
+      rock: "حجر",
+      paper: "ورق",
+      scissors: "مقص",
+    };
+
+    playerChoiceSpan.textContent = arabicChoices[player];
+    computerChoiceSpan.textContent = arabicChoices[computer];
+
+    if (player === computer) {
+      scores.draws++;
+      return "تعادل! 🤝";
+    }
     if (
       (player === "rock" && computer === "scissors") ||
       (player === "scissors" && computer === "paper") ||
       (player === "paper" && computer === "rock")
     ) {
-      return "You Win! 🎉";
+      scores.wins++;
+      return "أنت الفائز! 🎉";
     } else {
-      return "You Lose! 😢";
+      scores.losses++;
+      return "خسرت! 😢";
     }
+  }
+
+  function updateScoreDisplay() {
+    document.getElementById("wins-count").textContent = scores.wins;
+    document.getElementById("losses-count").textContent = scores.losses;
+    document.getElementById("draws-count").textContent = scores.draws;
   }
 });
